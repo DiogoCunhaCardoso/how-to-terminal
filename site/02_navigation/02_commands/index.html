@@ -1,0 +1,1833 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to navigate the Linux filesystem using pwd, ls, and cd. Understand paths and shortcuts">
+      
+      
+        <meta name="author" content="Diogo Cardoso">
+      
+      
+      
+        <link rel="prev" href="../01_navigation_tree/">
+      
+      
+        <link rel="next" href="../../03_filesystem/intro/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/terminal.svg">
+      <meta name="generator" content="zensical-0.0.37">
+    
+    
+      
+        <title>Navigation Commands - How to Terminal</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.1e981d71.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Geist:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Geist";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pwd-where-am-i" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="How to Terminal" class="md-header__button md-logo" aria-label="How to Terminal" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-terminal" viewBox="0 0 24 24"><path d="M12 19h8M4 17l6-6-6-6"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            How to Terminal
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Navigation Commands
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="How to Terminal" class="md-nav__button md-logo" aria-label="How to Terminal" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-terminal" viewBox="0 0 24 24"><path d="M12 19h8M4 17l6-6-6-6"/></svg>
+
+    </a>
+    How to Terminal
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-terminal" viewBox="0 0 24 24"><path d="M12 19h8M4 17l6-6-6-6"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Intro
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Intro
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_intro/01_get_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_intro/02_learn_by_yourself/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn by Yourself
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_intro/03_terminal_shortcuts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Terminal Shortcuts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Navigation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Navigation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_navigation_tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Navigation Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigation Commands
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigation Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pwd-where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>pwd</code> - Where am I?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ls-whats-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>ls</code> - What's here?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ls - What&#x27;s here?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Common Options
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nice-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nice to know
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cd-move-around" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>cd</code> - Move around
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cd - Move around">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Path Types
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-path-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Special Path Shortcuts
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check Your Understanding
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check Your Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Where am I?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-whats-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. What's here?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enter-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Enter a folder
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-go-up-one-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Go up one level
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-go-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Go home
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-go-to-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Go to root
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-see-hidden-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7. See hidden files
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-see-file-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8. See file details
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-human-readable-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9. Human-readable sizes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Filesystem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Filesystem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_filesystem/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_filesystem/01_file_and_directory_operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File & Directory Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_filesystem/02_viewing_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Viewing Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_filesystem/03_redirection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redirection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_filesystem/04_editing_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_filesystem/05_links/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Links
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Permissions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Permissions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_permissions/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_permissions/01_users/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Root User & Sudo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_permissions/02_user_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_permissions/03_file_permissions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pwd-where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>pwd</code> - Where am I?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ls-whats-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>ls</code> - What's here?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ls - What&#x27;s here?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Common Options
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nice-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Nice to know
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cd-move-around" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>cd</code> - Move around
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cd - Move around">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Path Types
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-path-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Special Path Shortcuts
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-understanding" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Check Your Understanding
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check Your Understanding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Where am I?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-whats-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. What's here?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enter-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Enter a folder
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-go-up-one-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Go up one level
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-go-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Go home
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-go-to-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Go to root
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-see-hidden-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7. See hidden files
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-see-file-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8. See file details
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-human-readable-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9. Human-readable sizes
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../intro/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    02 Navigation
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <h1 id="__skip">Navigation Commands</h1>
+
+<p>Now that you understand the filesystem tree, let's learn how to move around.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Learn</label><label for="__tabbed_1_2">Cheat Sheet</label><label for="__tabbed_1_3">Test your knowledge</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<h2 id="pwd-where-am-i"><code>pwd</code> - Where am I?<a class="headerlink" href="#pwd-where-am-i" title="Permanent link">&para;</a></h2>
+<p><code>pwd</code> stands for <strong>P</strong>rint <strong>W</strong>orking <strong>D</strong>irectory. It tells you exactly where you are.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">pwd</span><span class="w">   </span><span class="c1"># /home/your-username</span>
+</span></code></pre></div>
+<h2 id="ls-whats-here"><code>ls</code> - What's here?<a class="headerlink" href="#ls-whats-here" title="Permanent link">&para;</a></h2>
+<p><code>ls</code> stands for List. It shows you what's inside the current directory.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ls<span class="w">   </span><span class="c1"># Documents  Downloads  Desktop  Pictures  Music  Videos</span>
+</span></code></pre></div>
+<h3 id="common-options">Common Options<a class="headerlink" href="#common-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Meaning</th>
+<th style="text-align: left;">Why you need it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-l</code></td>
+<td style="text-align: left;">Long format</td>
+<td style="text-align: left;">See file sizes, dates, permissions</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-a</code></td>
+<td style="text-align: left;">All files</td>
+<td style="text-align: left;">See hidden files - files starting with <code>.</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-h</code></td>
+<td style="text-align: left;">Human-readable</td>
+<td style="text-align: left;">Makes <code>-l</code> output readable - <code>4K</code> not <code>4096</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="nice-to-know">Nice to know<a class="headerlink" href="#nice-to-know" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Meaning</th>
+<th style="text-align: left;">Why you need it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-R</code></td>
+<td style="text-align: left;">Recursive</td>
+<td style="text-align: left;">Explore entire folder structures</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-t</code></td>
+<td style="text-align: left;">Sort by time</td>
+<td style="text-align: left;">Find recently changed files</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-S</code></td>
+<td style="text-align: left;">Sort by size</td>
+<td style="text-align: left;">Find what's taking up space</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cd-move-around"><code>cd</code> - Move around<a class="headerlink" href="#cd-move-around" title="Permanent link">&para;</a></h2>
+<p><code>cd</code> stands for <strong>C</strong>hange <strong>D</strong>irectory. It moves you somewhere else.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>Documents/<span class="w">  </span><span class="c1"># Puts you inside Documents directory</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tab Autocomplete &amp; Conflicts</p>
+<p>If you type <code>cd Do</code> + <span class="keys"><kbd class="key-tab">Tab</kbd></span> and nothing happens, there is a conflict (e.g., <strong>Documents</strong> vs <strong>Downloads</strong>). Press <span class="keys"><kbd class="key-tab">Tab</kbd></span> twice to see all available options.</p>
+</div>
+<h3 id="path-types">Path Types<a class="headerlink" href="#path-types" title="Permanent link">&para;</a></h3>
+<p><strong>Absolute paths</strong> work no matter where you are. <strong>Relative paths</strong> depend on your current location.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Starts with</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Absolute</strong></td>
+<td style="text-align: left;"><code>/</code></td>
+<td style="text-align: left;"><code>/home/your-username/Documents</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Relative</strong></td>
+<td style="text-align: left;">NOT <code>/</code></td>
+<td style="text-align: left;"><code>Documents/</code> - only works if you're in <code>/home/your-username</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="special-path-shortcuts">Special Path Shortcuts<a class="headerlink" href="#special-path-shortcuts" title="Permanent link">&para;</a></h3>
+<p>These symbols save you typing:</p>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>Current directory</td>
+</tr>
+<tr>
+<td><code>..</code></td>
+<td>Parent directory (one level up)</td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>Your home directory</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Root directory</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>cd ..</code> is the one you'll use constantly.</p>
+</blockquote>
+<p>If you type <code>cd</code> by itself (no path), it takes you straight home:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w">         </span><span class="c1"># same as cd ~</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">pwd</span><span class="w">        </span><span class="c1"># /home/your-username</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Common Options</th>
+<th style="text-align: left;">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>pwd</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">Where am I?</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ls</code></td>
+<td style="text-align: left;"><code>-l</code> <code>-a</code> <code>-h</code> <code>-R</code> <code>-t</code> <code>-S</code></td>
+<td style="text-align: left;">List files (+ options for details, hidden, human, recursive, time, size)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cd</code></td>
+<td style="text-align: left;"><code>folder/</code> <code>..</code> <code>~</code> <code>/</code></td>
+<td style="text-align: left;">Move around (enter, up, home, root)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Shortcuts:</strong> <code>.</code> = here, <code>..</code> = up, <code>~</code> = home, <code>/</code> = root</p>
+</div>
+<div class="tabbed-block">
+<h2 id="check-your-understanding">Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Permanent link">&para;</a></h2>
+<p>Test yourself with these real terminal scenarios.</p>
+<h3 id="1-where-am-i">1. Where am I?<a class="headerlink" href="#1-where-am-i" title="Permanent link">&para;</a></h3>
+<p>You just opened your terminal. You have no idea where you are.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>pwd</code> - Prints your current location.</p>
+</details>
+<hr />
+<h3 id="2-whats-here">2. What's here?<a class="headerlink" href="#2-whats-here" title="Permanent link">&para;</a></h3>
+<p>You want to see what files and folders are in your current directory.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>ls</code> - Lists everything in the current directory.</p>
+</details>
+<hr />
+<h3 id="3-enter-a-folder">3. Enter a folder<a class="headerlink" href="#3-enter-a-folder" title="Permanent link">&para;</a></h3>
+<p>You see <code>Documents</code> in the list. You want to go inside it.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>cd Documents/</code> - Moves you into the Documents folder.</p>
+</details>
+<hr />
+<h3 id="4-go-up-one-level">4. Go up one level<a class="headerlink" href="#4-go-up-one-level" title="Permanent link">&para;</a></h3>
+<p>You're in <code>Documents</code>. You want to go back to the previous folder.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>cd ..</code> - Moves up one level to the parent directory.</p>
+</details>
+<hr />
+<h3 id="5-go-home">5. Go home<a class="headerlink" href="#5-go-home" title="Permanent link">&para;</a></h3>
+<p>You're deep inside some folder. You want to go straight back to your home directory.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>cd</code> or <code>cd ~</code> - Both take you home.</p>
+</details>
+<hr />
+<h3 id="6-go-to-root">6. Go to root<a class="headerlink" href="#6-go-to-root" title="Permanent link">&para;</a></h3>
+<p>You want to go to the very top of the filesystem.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>cd /</code> - Takes you to root.</p>
+</details>
+<hr />
+<h3 id="7-see-hidden-files">7. See hidden files<a class="headerlink" href="#7-see-hidden-files" title="Permanent link">&para;</a></h3>
+<p>You run <code>ls</code> but don't see your <code>.bashrc</code> file. You know it exists somewhere.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>ls -a</code> - Shows all files, including hidden ones (starting with <code>.</code>).</p>
+</details>
+<hr />
+<h3 id="8-see-file-details">8. See file details<a class="headerlink" href="#8-see-file-details" title="Permanent link">&para;</a></h3>
+<p>You want to see file sizes, dates, and permissions - not just names.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>ls -l</code> - Long format shows details.</p>
+</details>
+<hr />
+<h3 id="9-human-readable-sizes">9. Human-readable sizes<a class="headerlink" href="#9-human-readable-sizes" title="Permanent link">&para;</a></h3>
+<p>You run <code>ls -l</code> but see <code>4096</code> instead of <code>4K</code>. You want it readable.</p>
+<p><strong>What command do you type?</strong></p>
+<details class="question">
+<summary>Reveal Answer</summary>
+<p><code>ls -lh</code> - Adds <code>-h</code> for human-readable sizes.</p>
+</details>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../01_navigation_tree/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Linux Navigation Tree">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Linux Navigation Tree
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../03_filesystem/intro/" class="md-footer__link md-footer__link--next" aria-label="Next: Intro">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Intro
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Open Source
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["announce.dismiss","content.code.annotate","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dbc0afdc.min.js"></script>
+      
+    
+  </body>
+</html>

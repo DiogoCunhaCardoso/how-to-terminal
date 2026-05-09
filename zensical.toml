@@ -1,0 +1,109 @@
+[project]
+site_name = "How to Terminal"
+site_description = "A guide on learning how to use the terminal"
+site_url = "https://diogocunhacardoso.github.io/how-to-terminal/"
+copyright = "Open Source"
+extra_css = ["stylesheets/extra.css"]
+
+##
+## NAVIGATION
+##
+
+nav = [
+    { "Home" = "index.md" },
+    { "01 Intro" = [
+        "01_intro/01_get_started.md",
+        "01_intro/02_learn_by_yourself.md",
+        "01_intro/03_terminal_shortcuts.md"
+    ]},
+    { "02 Navigation" = [
+        "02_navigation/intro.md",
+        "02_navigation/01_navigation_tree.md",
+        "02_navigation/02_commands.md",
+    ]},
+    { "03 Filesystem" = [
+        "03_filesystem/intro.md",
+        "03_filesystem/01_file_and_directory_operations.md",
+        "03_filesystem/02_viewing_files.md",
+        "03_filesystem/03_redirection.md",
+        "03_filesystem/04_editing_files.md",
+        "03_filesystem/05_links.md",
+    ]},
+    { "04 Permissions" = [
+        "04_permissions/intro.md",
+        "04_permissions/01_users.md",
+        "04_permissions/02_user_management.md",
+        "04_permissions/03_file_permissions.md"
+    ]}    
+   ]
+
+##
+## THEME
+##
+
+[project.theme]
+language = "en"
+features = [
+    "announce.dismiss",
+    "content.code.annotate",
+    "content.footnote.tooltips",
+    "content.tabs.link",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.path",
+    "navigation.sections",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight"
+]
+favicon = "images/terminal.svg"
+
+[project.theme.icon]
+logo = "lucide/terminal"
+
+[project.theme.font]
+text = "Geist"
+code = "JetBrains Mono"
+
+[project.extra]
+generator = false
+
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+pygments_lang_class = true
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.magiclink]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+combine_header_slug = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]

@@ -1,0 +1,305 @@
+/* ============================================================================
+   HOW TO TERMINAL - CUSTOM THEME
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   DESIGN TOKENS (COLORS & VARIABLES)
+   ---------------------------------------------------------------------------- */
+
+:root {
+  /* Brand Colors - Orange */
+  --orange-hue: 23;
+  --orange: hsl(var(--orange-hue), 100%, 48%);
+  --orange-dark: hsl(var(--orange-hue), 100%, 42%);
+  --orange-border: hsl(var(--orange-hue), 100%, 38%);
+
+  /* Base Colors - Neutral/Warm */
+  --bg: hsl(60, 20%, 98%);
+  --text: hsl(0, 0%, 0%);
+  --text-secondary: hsl(215, 10%, 50%);
+  --border: hsl(50, 8%, 74%);
+  --card-bg: hsl(0, 0%, 100%);
+  --header-bg: hsl(60, 12%, 91%);
+  --table-header-bg: hsl(50, 8%, 89%);
+
+  /* Green (Question/Reveal Answers) - base hue 120 */
+  --question-bg: hsl(120, 78%, 96%);
+  --question-border-hue: 120;
+  --question-border: hsl(120, 44%, 66%);
+  --question-icon-hue: 120;
+  --question-icon: hsl(120, 73%, 16%);
+  --question-text: hsl(120, 80%, 6%);
+
+  /* Blue (Info) - base hue 210 */
+  --info-bg: hsl(210, 78%, 96%);
+  --info-border: hsl(210, 44%, 66%);
+  --info-icon: hsl(210, 73%, 16%);
+  --info-text: hsl(210, 80%, 6%);
+
+  /* Teal (Tip) - base hue 175 */
+  --tip-bg: hsl(175, 78%, 96%);
+  --tip-border: hsl(175, 44%, 66%);
+  --tip-icon: hsl(175, 73%, 16%);
+  --tip-text: hsl(175, 80%, 6%);
+
+  /* Red (Danger) - shifted hue from 120 → 0 */
+  --danger-bg: hsl(0, 78%, 96%);
+  --danger-border: hsl(0, 44%, 66%);
+  --danger-icon: hsl(0, 73%, 16%);
+  --danger-text: hsl(0, 80%, 9%);
+
+  --warning-bg: hsl(50, 78%, 96%);
+  --warning-border: hsl(50, 44%, 70%);
+  --warning-icon: hsl(50, 73%, 16%);
+  --warning-text: hsl(50, 80%, 9%);
+
+  /* Quote (Gray) */
+  --quote-bg: hsl(0, 0%, 96%);
+  --quote-border: hsl(0, 0%, 70%);
+  --quote-icon: hsl(0, 0%, 30%);
+  --quote-text: hsl(0, 0%, 15%);
+}
+
+* {
+  border-radius: 0px !important;
+}
+/* ----------------------------------------------------------------------------
+   BASE THEME
+   ---------------------------------------------------------------------------- */
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: var(--bg);
+  --md-accent-fg-color: var(--orange);
+  --md-primary-fg-color: var(--orange);
+}
+
+/* ----------------------------------------------------------------------------
+   TYPOGRAPHY
+   ---------------------------------------------------------------------------- */
+
+body,
+.md-typeset {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
+}
+
+h1 {
+  font-size: 1.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 1rem !important;
+}
+
+h2 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+}
+
+h3 {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  margin-top: 1rem !important;
+}
+
+/* ----------------------------------------------------------------------------
+   HEADER & NAVIGATION
+   ---------------------------------------------------------------------------- */
+
+.md-header {
+  background-color: var(--header-bg) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Selected navigation item */
+.md-nav__link--active {
+  background-color: var(--header-bg) !important;
+}
+
+/* ----------------------------------------------------------------------------
+   CODE BLOCKS
+   ---------------------------------------------------------------------------- */
+
+code {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+}
+
+@media (max-width: 720px) {
+  code {
+    margin: 0 1rem !important;
+  }
+}
+
+.md-nav--secondary code {
+  border-width: 0px !important;
+  padding: 0 !important;
+}
+
+/* ----------------------------------------------------------------------------
+   TABLES
+   ---------------------------------------------------------------------------- */
+
+table {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+}
+
+table th {
+  background-color: var(--table-header-bg) !important;
+  font-weight: 600 !important;
+}
+
+/* ----------------------------------------------------------------------------
+   BUTTONS
+   ---------------------------------------------------------------------------- */
+
+/* Primary buttons */
+.md-button {
+  background-color: var(--orange) !important;
+  color: white !important;
+  padding: 0.25rem 0.75rem !important;
+  font-size: 14px !important;
+  border: 1px solid var(--orange-border) !important;
+  box-shadow: 0 2px 0 0 var(--orange-border) !important;
+}
+
+.md-button:hover {
+  opacity: 1 !important;
+  background-color: var(--orange) !important;
+  transition: all 0.1s ease-in-out !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 0 0 var(--orange-border) !important;
+}
+
+/* Grid card buttons (outline style) */
+.grid .md-button {
+  background-color: transparent !important;
+  color: var(--orange) !important;
+  border: 1px solid var(--orange) !important;
+  box-shadow: none !important;
+  padding: 0.2rem 0.5rem !important;
+  margin-top: 0.75rem !important;
+  box-shadow: 0 2px 0 0 var(--orange) !important;
+}
+
+.grid .md-button:hover {
+  transition: all 0.1s ease-in-out !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 0 0 var(--orange) !important;
+}
+
+/* ----------------------------------------------------------------------------
+   KEYBOARD KEYS
+   ---------------------------------------------------------------------------- */
+
+kbd {
+  margin: 0 4px !important;
+  background-color: var(--card-bg) !important;
+}
+
+/* ----------------------------------------------------------------------------
+   GRID CARDS
+   ---------------------------------------------------------------------------- */
+
+.grid.cards li {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}
+
+/* ----------------------------------------------------------------------------
+   ADMONITIONS
+   ---------------------------------------------------------------------------- */
+
+/* Question / Reveal Answers (Green) */
+.md-typeset .question {
+  background-color: var(--question-bg) !important;
+  border: solid 1px var(--question-border) !important;
+  color: var(--question-text) !important;
+}
+
+.md-typeset .question > * {
+  color: var(--question-text) !important;
+}
+
+.md-typeset .question > summary::before,
+.md-typeset .question > summary::after {
+  background-color: var(--question-icon) !important;
+}
+
+/* Info (Blue) */
+.md-typeset .info {
+  background-color: var(--info-bg) !important;
+  border: solid 1px var(--info-border) !important;
+}
+
+.md-typeset .info > * {
+  color: var(--info-text) !important;
+}
+
+.md-typeset .info .admonition-title::before {
+  background-color: var(--info-icon) !important;
+}
+
+/* Tip (Teal) */
+.md-typeset .tip {
+  background-color: var(--tip-bg) !important;
+  border: solid 1px var(--tip-border) !important;
+}
+
+.md-typeset .tip > * {
+  color: var(--tip-text) !important;
+}
+
+.md-typeset .tip .admonition-title::before {
+  background-color: var(--tip-icon) !important;
+}
+
+/* Danger / Warning (Red) */
+.md-typeset .danger {
+  background-color: var(--danger-bg) !important;
+  border: solid 1px var(--danger-border) !important;
+  color: white !important;
+}
+
+.md-typeset .danger > * {
+  color: var(--danger-text) !important;
+}
+
+.md-typeset .danger .admonition-title::before {
+  background-color: var(--danger-icon) !important;
+}
+
+/* Warning (Light Orange) */
+
+.md-typeset .warning {
+  background-color: var(--warning-bg) !important;
+  border: solid 1px var(--warning-border) !important;
+}
+
+.md-typeset .warning > * {
+  color: var(--warning-text) !important;
+}
+
+.md-typeset .warning .admonition-title::before {
+  background-color: var(--warning-icon) !important;
+}
+
+/* Quote (Gray) */
+.md-typeset .quote {
+  background-color: var(--quote-bg) !important;
+  border: solid 1px var(--quote-border) !important;
+}
+
+.md-typeset .quote > * {
+  color: var(--quote-text) !important;
+}
+
+.md-typeset .quote .admonition-title::before {
+  background-color: var(--quote-icon) !important;
+}
