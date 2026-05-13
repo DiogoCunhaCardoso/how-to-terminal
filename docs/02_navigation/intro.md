@@ -7,14 +7,6 @@ Let's finally start typing! All commands in this guide are for **Bash** (the def
 
 === "Learn"
 
-    Open a terminal and type your first command.
-
-    ```bash
-    echo Hello World
-    ```
-
-    > You should see "Hello World" being written back by the terminal
-
     ## Command Anatomy
 
     Every command you'll type follows the same pattern:

@@ -30,6 +30,14 @@ Let's learn how to use the command line. This documentation is designed to take 
 
 </div>
 
+## Structure
+
+Most of the pages are divided into three main areas:
+
+*   **Learn**: The core content to build your foundation.
+*   **Cheat Sheet**: For when you need a quick reminder.
+*   **Test your knowledge**: To challenge yourself and track progress.
+
 ## Why learn the Terminal?
 
 While graphical interfaces are great (I wouldn't want to edit a video in the terminal), the terminal gives you faster, direct control over your system. No menus. No clicks. Just you and the machine.
