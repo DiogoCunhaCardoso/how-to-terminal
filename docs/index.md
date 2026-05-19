@@ -34,9 +34,9 @@ Let's learn how to use the command line. This documentation is designed to take 
 
 Most of the pages are divided into three main areas:
 
-*   **Learn**: The core content to build your foundation.
-*   **Cheat Sheet**: For when you need a quick reminder.
-*   **Test your knowledge**: To challenge yourself and track progress.
+- **Learn**: The core content to build your foundation.
+- **Cheat Sheet**: For when you need a quick reminder.
+- **Test your knowledge**: To challenge yourself and track progress.
 
 ## Why learn the Terminal?
 

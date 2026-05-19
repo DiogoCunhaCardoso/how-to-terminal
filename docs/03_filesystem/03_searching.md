@@ -3,11 +3,11 @@ title: "Searching"
 description: "Learn how to find files and search for text within files using find, grep, and pipes. Master filtering command outputs and time-based searches."
 ---
 
-You can create and view files. Now let's learn how to **find them**, **search inside them**, and **filter outputs**.
+You can create and view files. Now let's learn how to **find them**, **search inside them**, and **filter output**.
 
 === "Learn"
 
-    ## Finding vs. Searching
+    ## Finding vs Searching
 
     Before diving in, understand the difference between the two main tools:
 
@@ -48,7 +48,7 @@ You can create and view files. Now let's learn how to **find them**, **search in
     ```bash
     find . -mmin -60          # Modified in the last hour (less than 60 mins)
     find . -mtime -7          # Modified in the last 7 days
-    find . -mtime +3 -and -mtime -7 # Modified between 3 and 7 days ago
+    find . -mtime +3 -mtime -7 # Modified between 3 and 7 days ago
     ```
 
     ### Permissions and Ownership
@@ -79,13 +79,15 @@ You can create and view files. Now let's learn how to **find them**, **search in
     | `-c` | Count the number of matching lines | `grep -c "fox" sample.txt` |
     | `-e` | Protect patterns starting with a hyphen `-` | `grep -e "-v" file.conf` |
 
-    > Without `-e`, running `grep "-v" file.conf` makes grep think you want to use the invert flag. `-e` ensures it's read as plain text.
+    !!! tip
+
+        Use `grep -e "pattern"` or `grep -- "pattern"` when your search text starts with `-`. This prevents grep from treating the search string as an option.
 
     ---
 
-    ## `|` - Pipe: Combine commands to filter output
+    ## `|` (Pipe) - Combine commands to filter output
 
-    Just like you saw in Redirection, the pipe `|` takes the stdout of the left command and passes it as stdin to `grep`. This lets you search live terminal outputs.
+    Just like in Redirection, the pipe `|` takes the stdout of the left command and passes it as stdin to `grep`. This lets you search live terminal outputs.
 
     ```bash
     history | grep "sudo"  # search your command history for "sudo"
@@ -103,20 +105,26 @@ You can create and view files. Now let's learn how to **find them**, **search in
     ls /var/log | grep '.log$'  # list only files ending exactly with .log
     ```
 
+    !!! danger
+        Avoid parsing `ls` output in scripts. This is only a reliable technique for interactive filtering.
+
     > You can chain multiple pipes together: `history | grep "git" | grep -v "commit"`
 
 === "Cheat Sheet"
 
     | Command | Options | What it does |
     | :--- | :--- | :--- |
-    | `find` | `-name` `-iname` | Search by filename (case sensitive/insensitive) |
+    | `find` | `-name` `-iname` | Search by filename (case-sensitive / case-insensitive) |
     | `find` | `-type f` / `-type d` | Filter results by files or directories |
+    | `find` | `-maxdepth N` | Limit how deep subfolders are searched |
     | `find` | `-mmin -N` / `-mtime -N` | Find files modified in the last N minutes/days |
     | `find` | `-perm [mode]` | Search for files with specific permissions |
-    | `grep` | `-i` `-r` | Search text inside files (ignore case / recursive) |
+    | `grep` | `-i` `-r` | Ignore case / search recursively in subfolders |
     | `grep` | `-n` `-v` | Show matching line numbers / Hide matching lines |
     | `grep` | `-c` `-e` | Count matches / Protect patterns starting with `-` |
-    | `\| grep` | - | Pipe any command output into grep to filter it |
+    | `|` | - | Send command output into grep for filtering |
+
+    **Note:** Use `grep -- pattern` or `grep -e pattern` when the search text starts with `-`.
 
 === "Test your knowledge"
 
@@ -126,7 +134,7 @@ You can create and view files. Now let's learn how to **find them**, **search in
 
     ### 1. Save a directory listing
 
-    You just edited a configuration file 5 minutes ago but forgot which one it was in a sea of folders.
+    You edited a configuration file 5 minutes ago but forgot which one it was in a sea of folders.
 
     **What command shows files modified in the last 10 minutes?**
 

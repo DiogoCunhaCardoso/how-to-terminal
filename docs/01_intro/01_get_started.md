@@ -100,9 +100,9 @@ Let's get some basics out of the way first. Then you can start typing.
 
     | Partition | Purpose | Size |
     | :--- | :--- | :--- |
-    | `/` (root) | System lives here | 20–30 GB |
+    | `/` (root) | System lives here | 20-30 GB |
     | `/home` | Your personal files | rest of disk |
-    | `swap` | Emergency RAM | 2–4 GB |
+    | `swap` | Emergency RAM | 2-4 GB |
     | `/boot` | Linux startup files | ~500 MB |
 
 === "Cheat Sheet"
