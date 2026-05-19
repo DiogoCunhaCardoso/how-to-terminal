@@ -25,9 +25,10 @@ nav = [
         "03_filesystem/intro.md",
         "03_filesystem/01_file_and_directory_operations.md",
         "03_filesystem/02_viewing_files.md",
-        "03_filesystem/03_redirection.md",
-        "03_filesystem/04_editing_files.md",
-        "03_filesystem/05_links.md",
+        "03_filesystem/03_searching.md",
+        "03_filesystem/04_redirection.md",
+        "03_filesystem/05_editing_files.md",
+        "03_filesystem/06_links.md",
     ]},
     { "04 Permissions" = [
         "04_permissions/intro.md",
