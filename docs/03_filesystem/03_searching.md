@@ -3,123 +3,120 @@ title: "Searching"
 description: "Learn how to find files and search for text within files using find, grep, and pipes. Master filtering command outputs and time-based searches."
 ---
 
-You can create and view files. Now let's learn how to **find them**, **search inside them**, and **filter terminal outputs** using pipes.
+You can create and view files. Now let's learn how to **find them**, **search inside them**, and **filter outputs**.
 
 === "Learn"
 
-    ## `find` - Search for files and directories
+    ## Finding vs. Searching
 
-    The `find` command searches the filesystem for files and directories based on names, size, permissions, and even time.
+    Before diving in, understand the difference between the two main tools:
 
-    ```bash
-    find . -name "notes.txt"   # find "notes.txt" in current directory and subfolders
-    ```
-
-    ### Searching by Name & Type
-
-    - `-name`: Case-sensitive search.
-    - `-iname`: Case-insensitive (ignores if it's uppercase or lowercase).
-    - `-type f` (files) or `-type d` (directories).
-
-    ```bash
-    find /home -iname "*.jpg"     # case-insensitive search in /home
-    find . -type d -name "src"    # find only directories named "src"
-    find . -maxdepth 1 -name "*"  # search only in the current folder, no subfolders
-    ```
-
-    > Pros: Extremely powerful filtering. Cons: Syntax can be tricky for complex searches.
-
-    ### Searching by Time (Advanced)
-
-    Find files based on when they were last touched.
-
-    | Option | Unit | Meaning |
+    | Tool | What it looks for | Best used for |
     | :--- | :--- | :--- |
-    | `-mtime` | Days | Content was modified |
-    | `-mmin`  | Minutes | Content was modified |
-    | `-atime` | Days | File was accessed (read) |
-    | `-ctime` | Days | Metadata changed (permissions/owner) |
-
-    ```bash
-    find . -mmin -60          # Modified in the last hour
-    find . -mtime -7          # Modified in the last 7 days
-    find . -mtime +3 -and -mtime -7 # Modified between 3 and 7 days ago
-    ```
-
-    ### Permissions and Ownership
-
-    You can also find files based on who owns them or what they are allowed to do:
-
-    ```bash
-    sudo find /srv/chemistry/ -user ryan    # Files owned by user "ryan"
-    sudo find /srv/chemistry/ -group lisa   # Files belonging to group "lisa"
-    find . -perm 777                        # Files with full read/write/execute permissions
-    ```
+    | **`find`** | File metadata (Names, dates, sizes) | Locating a lost file or directory |
+    | **`grep`** | Text content *inside* files | Finding a specific line, variable, or log error |
 
     ---
 
-    ## `grep` - Search for text inside files
+    ## `find` - Search for files and directories
 
-    While `find` looks for the file itself, `grep` looks at what is **inside** the file.
+    The `find` command searches the filesystem based on names, size, permissions, and even time.
 
     ```bash
-    grep "error" log.txt   # prints lines containing "error"
+    find . -name "notes.txt"   # find "notes.txt" in current directory and subfolders
     ```
 
     ### Useful options
 
     | Option | What it does | Example |
     | :--- | :--- | :--- |
-    | `-i` | Ignore case | `grep -i "critical" app.log` |
-    | `-r` | Search recursively | `grep -r "TODO" ./projects` |
-    | `-n` | Show line numbers | `grep -n "main" script.py` |
-    | `-v` | Invert match (hide lines) | `grep -v "info" debug.log` |
+    | `-name` | Search by filename (case-sensitive) | `find . -name "app.log"` |
+    | `-iname` | Search by filename (case-insensitive) | `find . -iname "readme.md"` |
+    | `-type f` | Search for **f**iles only | `find . -type f` |
+    | `-type d` | Search for **d**irectories only | `find . -type d -name "src"` |
+    | `-maxdepth` | Limit how deep subfolders are searched | `find . -maxdepth 1 -name "*.sh"` |
+
+    > Pros: Extremely powerful filtering. Cons: Syntax can be tricky for complex searches.
+
+    ### Searching by Time (Advanced)
+
+    You can locate files based on when they were last modified or accessed.
+
+    - `-mmin N`: Content was modified `N` minutes ago.
+    - `-mtime N`: Content was modified `N` days ago.
 
     ```bash
-    grep -rn "API_KEY" .   # search recursively showing line numbers
+    find . -mmin -60          # Modified in the last hour (less than 60 mins)
+    find . -mtime -7          # Modified in the last 7 days
+    find . -mtime +3 -and -mtime -7 # Modified between 3 and 7 days ago
+    ```
+
+    ### Permissions and Ownership
+
+    ```bash
+    sudo find /srv -user ryan    # Files owned by user "ryan"
+    find . -perm 777             # Files with unsafe world-writable permissions
     ```
 
     ---
 
-    ## `|` (Pipes) - Filtering Command Output
+    ## `grep` - Search for text inside files
 
-    The third core concept of searching is using the pipe (`|`) to send the output of *any* command directly into `grep`. This allows you to search through live system data, command histories, or process lists instead of static files.
+    Instead of digging through countless lines manually, `grep` scans the content of files to match text patterns.
+
+    ```bash
+    grep "error" log.txt   # prints lines containing "error"
+    ```
+
+    ### Common Grep Flags
+
+    | Option | What it does | Example |
+    | :--- | :--- | :--- |
+    | `-i` | Ignore case (case-insensitive) | `grep -i "critical" app.log` |
+    | `-r` | Search recursively in subfolders | `grep -r "TODO" ./projects` |
+    | `-n` | Show line numbers of the match | `grep -n "main" script.py` |
+    | `-v` | Invert match (hide lines matching text) | `grep -v "info" debug.log` |
+    | `-c` | Count the number of matching lines | `grep -c "fox" sample.txt` |
+    | `-e` | Protect patterns starting with a hyphen `-` | `grep -e "-v" file.conf` |
+
+    > Without `-e`, running `grep "-v" file.conf` makes grep think you want to use the invert flag. `-e` ensures it's read as plain text.
+
+    ---
+
+    ## `|` - Pipe: Combine commands to filter output
+
+    Just like you saw in Redirection, the pipe `|` takes the stdout of the left command and passes it as stdin to `grep`. This lets you search live terminal outputs.
 
     ```bash
     history | grep "sudo"  # search your command history for "sudo"
     ```
-
-    ### How it works:
-    The standard output (**stdout**) of the command on the left becomes the standard input (**stdin**) of the command on the right.
 
     ```bash
     ls -la | grep "Dec"    # show only files modified in December
     ps aux | grep "python" # search active system processes for "python"
     ```
 
-    !!! tip "Chaining Filters"
-        You can chain multiple pipes together to narrow down your search:
-        ```bash
-        history | grep "git" | grep -v "commit" # find git commands, but hide commits
-        ```
+    ### Advanced Filtering with Regex
+    Using `$` anchors your search to the **end** of a line:
+
+    ```bash
+    ls /var/log | grep '.log$'  # list only files ending exactly with .log
+    ```
+
+    > You can chain multiple pipes together: `history | grep "git" | grep -v "commit"`
 
 === "Cheat Sheet"
 
-    | Command / Flags | What it does | Example |
+    | Command | Options | What it does |
     | :--- | :--- | :--- |
-    | `find . -name [name]` | Find by name (case-sensitive) | `find . -name "app.log"` |
-    | `find . -iname [name]` | Find by name (case-insensitive) | `find . -iname "readme.md"` |
-    | `find . -type f / d` | Filter by file or directory | `find . -type d -name "src"` |
-    | `find . -mmin -N` | Modified in the last N minutes | `find . -mmin -10` |
-    | `find . -mtime -N` | Modified in the last N days | `find . -mtime -7` |
-    | `find . -perm [mode]` | Search by file permissions | `find . -perm 777` |
-    | `grep [text] [file]` | Search text inside a file | `grep "error" production.log` |
-    | `grep -r [text] [dir]` | Search text recursively in directory | `grep -r "DATABASE_URL" .` |
-    | `grep -i` | Ignore case during text search | `grep -i "critical" app.log` |
-    | `grep -v` | Invert match (hide matching lines) | `grep -v "DEBUG" server.log` |
-    | `[command] \| grep [text]` | Pipe output to filter results with grep | `history \| grep "ssh"` |
-
-    > Use `-and`, `-not` (or `!`) to build complex search queries with `find`.
+    | `find` | `-name` `-iname` | Search by filename (case sensitive/insensitive) |
+    | `find` | `-type f` / `-type d` | Filter results by files or directories |
+    | `find` | `-mmin -N` / `-mtime -N` | Find files modified in the last N minutes/days |
+    | `find` | `-perm [mode]` | Search for files with specific permissions |
+    | `grep` | `-i` `-r` | Search text inside files (ignore case / recursive) |
+    | `grep` | `-n` `-v` | Show matching line numbers / Hide matching lines |
+    | `grep` | `-c` `-e` | Count matches / Protect patterns starting with `-` |
+    | `\| grep` | - | Pipe any command output into grep to filter it |
 
 === "Test your knowledge"
 
@@ -127,7 +124,7 @@ You can create and view files. Now let's learn how to **find them**, **search in
 
     Test yourself with these real terminal scenarios.
 
-    ### 1. The Quick Fix
+    ### 1. Save a directory listing
 
     You just edited a configuration file 5 minutes ago but forgot which one it was in a sea of folders.
 
@@ -138,8 +135,6 @@ You can create and view files. Now let's learn how to **find them**, **search in
         ```bash
         find . -mmin -10
         ```
-
-    ---
 
     ### 2. Deep Project Search
 
@@ -152,49 +147,39 @@ You can create and view files. Now let's learn how to **find them**, **search in
         ```bash
         grep -rn "STRIPE_SECRET" .
         ```
-        The `-r` searches recursively through all subfolders, and `-n` prints the line numbers.
 
-    ---
+    ### 3. Hyphen Pattern Traps
 
-    ### 3. Security Audit
+    You want to search a configuration file named `settings.json` for the exact string `--debug`.
 
-    You need to find all directories in your current folder that have unsafe `777` permissions to make sure your workspace is secure.
-
-    **What command do you type?**
+    **What command ensures the pattern isn't confused with a flag?**
 
     ??? question "Reveal Answer"
 
         ```bash
-        find . -type d -perm 777
+        grep -e "--debug" settings.json
         ```
-        `-type d` targets only directories, and `-perm 777` checks for full read, write, and execute permissions.
 
-    ---
+    ### 4. Live Server Stats
 
-    ### 4. Filtering Live Server Logs
+    Instead of seeing hundreds of log lines containing the word "404", you just want a quick count of how many times a "404" error occurred in `access.log`.
 
-    You are debugging an app and want to see if a specific process called "nginx" is currently running on the system using the `ps aux` command.
-
-    **How do you filter the process list using a pipe?**
+    **What command do you run?**
 
     ??? question "Reveal Answer"
 
         ```bash
-        ps aux | grep "nginx"
+        grep -c "404" access.log
         ```
-        This takes the massive list of running processes from `ps aux` and passes it to `grep` to show only lines containing "nginx".
 
-    ---
+    ### 5. Advanced Pipe Filtering
 
-    ### 5. Smart Cleanup & Logic
+    You are listing a directory using `ls /var/log`, but you only want to see filenames that end precisely with `.log`.
 
-    You want to find all `.tmp` files in your project directory that haven't been touched or modified in the last 30 days so you can inspect them.
-
-    **What command do you type?**
+    **How do you filter the output using a pipe and regex?**
 
     ??? question "Reveal Answer"
 
         ```bash
-        find . -name "*.tmp" -mtime +30
+        ls /var/log | grep '.log$'
         ```
-        Using `+30` tells `find` to look for files modified *more* than 30 days ago.
